@@ -20,6 +20,8 @@ class HomeFragment : Fragment() {
         val mapView = MapView(context)
         binding.mapView.addView(mapView)
 
+        mapView.currentLocationTrackingMode = MapView.CurrentLocationTrackingMode.TrackingModeOnWithHeading
+
         return binding.root
     }
 }
