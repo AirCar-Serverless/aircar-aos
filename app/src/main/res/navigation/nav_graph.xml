@@ -14,4 +14,12 @@
 
     </fragment>
 
+    <fragment
+        android:id="@+id/car_info_fragment"
+        android:name="com.serverless.aircar.CarInfoFragment"
+        android:label="CarInfo Fragment"
+        tools:layout="@layout/fragment_car_info">
+
+    </fragment>
+
 </navigation>
