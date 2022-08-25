@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/home_fragment">
+    app:startDestination="@id/payment_fragment">
 
     <fragment
         android:id="@+id/home_fragment"
@@ -40,6 +40,15 @@
         android:name="com.serverless.aircar.TimeSetFragment"
         android:label="TimeSet Fragment"
         tools:layout="@layout/fragment_time_set">
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/payment_fragment"
+        android:name="com.serverless.aircar.PaymentFragment"
+        android:label="Payment Fragment"
+        tools:layout="@layout/fragment_payment">
+
 
     </fragment>
 

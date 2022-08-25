@@ -6,10 +6,14 @@
         <entry key="..\:/git/aircar-aos/app/src/main/res/drawable/bg_bottom_sheet.xml" value="0.1575" />
         <entry key="..\:/git/aircar-aos/app/src/main/res/drawable/bg_complete.xml" value="0.1455" />
         <entry key="..\:/git/aircar-aos/app/src/main/res/drawable/bg_rounded.xml" value="0.142" />
+        <entry key="..\:/git/aircar-aos/app/src/main/res/drawable/bg_rounded_rectangle.xml" value="0.1025" />
+        <entry key="..\:/git/aircar-aos/app/src/main/res/drawable/bg_rounded_rectangle_orange.xml" value="0.1025" />
         <entry key="..\:/git/aircar-aos/app/src/main/res/drawable/ic_bottom_sheet_dragger.xml" value="0.1575" />
         <entry key="..\:/git/aircar-aos/app/src/main/res/layout/activity_main.xml" value="0.1375" />
+        <entry key="..\:/git/aircar-aos/app/src/main/res/layout/bg_rounded_rectangle.xml" value="0.1" />
         <entry key="..\:/git/aircar-aos/app/src/main/res/layout/fragment_car_info.xml" value="0.14791666666666667" />
         <entry key="..\:/git/aircar-aos/app/src/main/res/layout/fragment_home.xml" value="0.4" />
+        <entry key="..\:/git/aircar-aos/app/src/main/res/layout/fragment_payment.xml" value="0.25768667642752563" />
         <entry key="..\:/git/aircar-aos/app/src/main/res/layout/fragment_time_set.xml" value="0.264" />
         <entry key="..\:/git/aircar-aos/app/src/main/res/layout/list_item_car.xml" value="0.176" />
         <entry key="..\:/git/aircar-aos/app/src/main/res/layout/list_item_car_info.xml" value="0.14791666666666667" />
