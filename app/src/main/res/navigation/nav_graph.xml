@@ -11,7 +11,20 @@
         android:label="Home Fragment"
         tools:layout="@layout/fragment_home">
 
-
+        <action
+            android:id="@+id/action_home_fragment_to_time_set_fragment"
+            app:destination="@id/time_set_fragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
+        <action
+            android:id="@+id/action_home_fragment_to_car_info_fragment"
+            app:destination="@id/car_info_fragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
     </fragment>
 
     <fragment
@@ -19,6 +32,15 @@
         android:name="com.serverless.aircar.CarInfoFragment"
         android:label="CarInfo Fragment"
         tools:layout="@layout/fragment_car_info">
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/time_set_fragment"
+        android:name="com.serverless.aircar.TimeSetFragment"
+        android:label="TimeSet Fragment"
+        tools:layout="@layout/fragment_time_set">
+
 
     </fragment>
 

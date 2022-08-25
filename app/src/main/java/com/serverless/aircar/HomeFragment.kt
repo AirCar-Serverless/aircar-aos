@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.serverless.aircar.adapters.CarInfoAdapter
@@ -41,6 +42,12 @@ class HomeFragment : Fragment() {
 
         mapView.setPOIItemEventListener(markerListener)
         mapView.setMapViewEventListener(mapViewEventListener)
+
+        binding.constraintTime.setOnClickListener {
+            val direction =
+                HomeFragmentDirections.actionHomeFragmentToTimeSetFragment()
+            findNavController().navigate(direction)
+        }
 
         return binding.root
     }
