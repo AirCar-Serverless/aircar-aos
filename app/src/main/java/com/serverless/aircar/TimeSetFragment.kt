@@ -14,12 +14,13 @@ import com.serverless.aircar.databinding.FragmentTimeSetBinding
 import java.text.SimpleDateFormat
 import java.util.*
 
-
 class TimeSetFragment : Fragment() {
 
     private lateinit var binding: FragmentTimeSetBinding
     private val now = System.currentTimeMillis()
     private val currentDate = Date(now)
+    private var rentTime = ""
+    private var returnTime = ""
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -54,10 +55,28 @@ class TimeSetFragment : Fragment() {
     private fun initTime() {
         val calendar = Calendar.getInstance()
         calendar.time = currentDate
-        binding.tvRentTime.text = getDate(currentDate, calendar)
+        rentTime = getDate(currentDate, calendar)
 
         calendar.add(Calendar.HOUR, 2)
-        binding.tvReturnTime.text = getDate(calendar.time, calendar)
+        returnTime = getDate(calendar.time, calendar)
+
+        binding.tvRentTime.text = rentTime
+        binding.tvReturnTime.text = returnTime
+
+        checkDate()
+    }
+
+    private fun checkDate() {
+        val rentStr = rentTime.split(' ')[0]
+        val returnStr = returnTime.split(' ')[0]
+
+        if (rentStr == returnStr) {
+            binding.rentTime.text = rentTime
+            binding.returnTime.text = returnTime.removePrefix("$returnStr ")
+        } else {
+            binding.rentTime.text = rentTime
+            binding.returnTime.text = returnTime
+        }
     }
 
     private fun showDateTimePicker(textView: TextView, title: String) {
@@ -70,7 +89,14 @@ class TimeSetFragment : Fragment() {
             .minDateRange(currentDate)
             .title(title)
             .listener {
-                textView.text = getDate(it, calendar)
+                val date = getDate(it, calendar)
+                if (title == "대여 시각") {
+                    rentTime = date
+                } else {
+                    returnTime = date
+                }
+                textView.text = date
+                checkDate()
             }.display()
     }
 
