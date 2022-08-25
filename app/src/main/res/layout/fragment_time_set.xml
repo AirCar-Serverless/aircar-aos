@@ -43,24 +43,48 @@
 
         </androidx.appcompat.widget.Toolbar>
 
-        <TextView
-            android:id="@+id/tv_using_time"
+        <LinearLayout
+            android:id="@+id/ln_using_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
-            android:text="총 2시간 이용"
-            android:textColor="@color/black"
-            android:textSize="22dp"
-            android:textStyle="bold"
+            android:orientation="horizontal"
             app:layout_constraintTop_toBottomOf="@+id/toolbar"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="총 "
+                android:textColor="@color/black"
+                android:textSize="22dp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tv_using_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="2"
+                android:textColor="@color/black"
+                android:textSize="22dp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="시간 이용"
+                android:textColor="@color/black"
+                android:textSize="22dp"
+                android:textStyle="bold" />
+
+        </LinearLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/constraint_time"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="9dp"
-            app:layout_constraintTop_toBottomOf="@+id/tv_using_time">
+            app:layout_constraintTop_toBottomOf="@+id/ln_using_time">
 
             <ImageView
                 android:id="@+id/img_schedule"

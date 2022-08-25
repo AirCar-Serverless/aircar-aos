@@ -41,7 +41,6 @@
         android:label="TimeSet Fragment"
         tools:layout="@layout/fragment_time_set">
 
-
     </fragment>
 
 </navigation>

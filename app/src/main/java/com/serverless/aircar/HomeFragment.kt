@@ -19,12 +19,37 @@ import net.daum.mf.map.api.MapPoint
 import net.daum.mf.map.api.MapView
 import org.json.JSONObject
 import java.text.DecimalFormat
+import java.text.SimpleDateFormat
+import java.util.*
+import kotlin.collections.HashMap
 
 class HomeFragment : Fragment() {
 
     private lateinit var binding: FragmentHomeBinding
     private lateinit var mapView: MapView
     val carInfoMap = HashMap<Location, CarInfo>()
+
+    private val now = System.currentTimeMillis()
+    private val currentDate = Date(now)
+    private var rentTime = ""
+    private var returnTime = ""
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        initTime()
+    }
+
+    override fun onResume() {
+        val calendar = Calendar.getInstance()
+        calendar.time = rentDate
+        rentTime = getDate(rentDate, calendar)
+
+        calendar.add(Calendar.DATE, 1)
+        returnTime = getDate(returnDate, calendar)
+
+        checkDate()
+        super.onResume()
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -33,6 +58,7 @@ class HomeFragment : Fragment() {
         binding = FragmentHomeBinding.inflate(inflater, container, false)
         context ?: return binding.root
 
+        checkDate()
         showMap()
         loadCarInfo()
 
@@ -50,6 +76,46 @@ class HomeFragment : Fragment() {
         }
 
         return binding.root
+    }
+
+    private fun initTime() {
+        val calendar = Calendar.getInstance()
+        calendar.time = currentDate
+        rentDate = currentDate
+        rentTime = getDate(currentDate, calendar)
+
+        calendar.add(Calendar.HOUR, 2)
+        returnDate = calendar.time
+        returnTime = getDate(calendar.time, calendar)
+    }
+
+    private fun checkDate() {
+        val rentStr = rentTime.split(' ')[0]
+        val returnStr = returnTime.split(' ')[0]
+
+        if (rentStr == returnStr) {
+            binding.rentTime.text = rentTime
+            binding.returnTime.text = returnTime.removePrefix("$returnStr ")
+        } else {
+            binding.rentTime.text = rentTime
+            binding.returnTime.text = returnTime
+        }
+
+        binding.tvUsingTime.text = ((returnDate.time - rentDate.time) / 3600000).toString()
+    }
+
+    private fun getDate(selectedDate: Date, calendar: Calendar): String {
+        val dateFormat = SimpleDateFormat("MM-dd", Locale.getDefault())
+        val timeFormat = SimpleDateFormat("HH:mm", Locale.getDefault())
+        val moreDaysFormat = SimpleDateFormat("MM월 dd일 HH:mm", Locale.getDefault())
+
+        return if (dateFormat.format(currentDate) == dateFormat.format(selectedDate)) {
+            "오늘 ${timeFormat.format(selectedDate)}"
+        } else if (dateFormat.format(calendar.time) == dateFormat.format(selectedDate)) {
+            "내일 ${timeFormat.format(selectedDate)}"
+        } else {
+            moreDaysFormat.format(selectedDate)
+        }
     }
 
     private fun showMap(): MapView {
@@ -164,5 +230,10 @@ class HomeFragment : Fragment() {
         override fun onMapViewDragStarted(p0: MapView?, p1: MapPoint?) {}
         override fun onMapViewDragEnded(p0: MapView?, p1: MapPoint?) {}
         override fun onMapViewMoveFinished(p0: MapView?, p1: MapPoint?) {}
+    }
+
+    companion object {
+        lateinit var rentDate: Date
+        lateinit var returnDate: Date
     }
 }

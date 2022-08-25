@@ -21,6 +21,8 @@ class TimeSetFragment : Fragment() {
     private val currentDate = Date(now)
     private var rentTime = ""
     private var returnTime = ""
+    private var _rentDate = HomeFragment.rentDate
+    private var _returnDate = HomeFragment.returnDate
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -38,6 +40,8 @@ class TimeSetFragment : Fragment() {
         }
 
         binding.btnComplete.setOnClickListener {
+            HomeFragment.rentDate = _rentDate
+            HomeFragment.returnDate = _returnDate
             findNavController().popBackStack()
         }
 
@@ -54,10 +58,10 @@ class TimeSetFragment : Fragment() {
 
     private fun initTime() {
         val calendar = Calendar.getInstance()
-        calendar.time = currentDate
-        rentTime = getDate(currentDate, calendar)
+        calendar.time = HomeFragment.rentDate
+        rentTime = getDate(calendar.time, calendar)
 
-        calendar.add(Calendar.HOUR, 2)
+        calendar.time = HomeFragment.returnDate
         returnTime = getDate(calendar.time, calendar)
 
         binding.tvRentTime.text = rentTime
@@ -77,6 +81,8 @@ class TimeSetFragment : Fragment() {
             binding.rentTime.text = rentTime
             binding.returnTime.text = returnTime
         }
+
+        binding.tvUsingTime.text = ((_returnDate.time - _rentDate.time) / 3600000).toString()
     }
 
     private fun showDateTimePicker(textView: TextView, title: String) {
@@ -84,15 +90,19 @@ class TimeSetFragment : Fragment() {
         calendar.time = currentDate
         calendar.add(Calendar.DATE, 1)
 
+        val date = if (title == "대여 시각") _rentDate else _returnDate
         SingleDateAndTimePickerDialog.Builder(context)
             .mainColor(ContextCompat.getColor(requireContext(), R.color.orange))
             .minDateRange(currentDate)
             .title(title)
+            .defaultDate(date)
             .listener {
                 val date = getDate(it, calendar)
                 if (title == "대여 시각") {
+                    _rentDate = it
                     rentTime = date
                 } else {
+                    _returnDate = it
                     returnTime = date
                 }
                 textView.text = date
