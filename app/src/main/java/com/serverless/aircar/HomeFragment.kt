@@ -87,6 +87,7 @@ class HomeFragment : Fragment() {
         }
 
         binding.lnCarInfo.setOnClickListener {
+            Log.d("jaemin", carId)
             val direction =
                 HomeFragmentDirections.actionHomeFragmentToCarInfoFragment(carId)
             findNavController().navigate(direction)

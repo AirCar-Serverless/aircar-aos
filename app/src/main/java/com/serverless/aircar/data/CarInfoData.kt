@@ -8,9 +8,9 @@ data class CarInfo(
     var carName: String = "",
     var carInfoType: String = "",
     var carInfoShapeType: String = "",
-    var carInfoCount: Int = 0,
+    var carInfoCount: String = "",
     var carInfoFuelType: String = "",
-    var carInfoDetail: String = "",
+    var carInfoDetail: Int = 0,
     var carOptions: List<String> = listOf(),
     var reviewCnt: Int = 0,
     var carRate: Double = 0.0,
@@ -35,9 +35,9 @@ sealed class CarInfoData(
         var carName: String,
         var carInfoType: String,
         var carInfoShapeType: String,
-        var carInfoCount: Int,
+        var carInfoCount: String,
         var carInfoFuelType: String,
-        var carInfoDetail: String//나중에 수정
+        var carInfoDetail: Int
     ): CarInfoData()
 
     data class CarReviewInfo(

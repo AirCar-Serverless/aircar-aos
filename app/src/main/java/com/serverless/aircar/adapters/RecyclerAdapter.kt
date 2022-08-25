@@ -179,9 +179,11 @@ class RecyclerAdapter() : ListAdapter<CarInfo, RecyclerView.ViewHolder>(DIFF_CAR
                 txtCarInfoName.text = carInfo.carName
                 txtCarInfoType.text = carInfo.carInfoType
                 txtCarInfoShapeType.text = carInfo.carInfoShapeType
-                txtCarInfoCount.text = "${carInfo.carInfoCount}명"
+                txtCarInfoCount.text = carInfo.carInfoCount
                 txtCarInfoFuelType.text = carInfo.carInfoFuelType
-                txtCarInfoDetail.text = carInfo.carInfoDetail
+                if(carInfo.carInfoDetail==0){
+                    txtCarInfoDetail.text = "금연차량"
+                }
             }
         }
     }
