@@ -29,43 +29,39 @@ class RecyclerAdapter() : ListAdapter<CarInfo, RecyclerView.ViewHolder>(DIFF_CAR
             }
             //호스트 정보
             InfoType.HOSTINFO.ordinal -> {
-                val view = LayoutInflater.from(parent.context).inflate(R.layout.list_item_host_info, parent, false)
                 val viewBinding = ListItemHostInfoBinding.inflate(
                     LayoutInflater.from(parent.context),
                     parent,
                     false
                 )
-                HostHolder(view, viewBinding)
+                HostHolder(viewBinding)
             }
             //차량 정보
             InfoType.CARINFO.ordinal -> {
-                val view = LayoutInflater.from(parent.context).inflate(R.layout.list_item_car_info, parent, false)
                 val viewBinding = ListItemCarInfoBinding.inflate(
                     LayoutInflater.from(parent.context),
                     parent,
                     false
                 )
-                CarInfoHolder(view, viewBinding)
+                CarInfoHolder(viewBinding)
             }
             //리뷰 정보
             InfoType.RATE.ordinal -> {
-                val view = LayoutInflater.from(parent.context).inflate(R.layout.list_item_review_stars, parent, false)
                 val viewBinding = ListItemReviewStarsBinding.inflate(
                     LayoutInflater.from(parent.context),
                     parent,
                     false
                 )
-                RateHolder(view, viewBinding)
+                RateHolder(viewBinding)
             }
             //리뷰
             InfoType.REVIEW.ordinal -> {
-                val view = LayoutInflater.from(parent.context).inflate(R.layout.list_item_review, parent, false)
                 val viewBinding = ListItemReviewBinding.inflate(
                     LayoutInflater.from(parent.context),
                     parent,
                     false
                 )
-                CarReviewHolder(view, viewBinding)
+                CarReviewHolder(viewBinding)
             }
             //버튼
             else -> {
@@ -148,7 +144,7 @@ class RecyclerAdapter() : ListAdapter<CarInfo, RecyclerView.ViewHolder>(DIFF_CAR
         }
     }
     // RATE
-    class RateHolder(v: View, private val binding: ListItemReviewStarsBinding): RecyclerView.ViewHolder(v){
+    class RateHolder(private val binding: ListItemReviewStarsBinding): RecyclerView.ViewHolder(binding.root){
         fun bind(item: CarInfo){
             var carRate = CarInfoData.CarReviewInfo(
                 carRate = item.carRate
@@ -157,8 +153,7 @@ class RecyclerAdapter() : ListAdapter<CarInfo, RecyclerView.ViewHolder>(DIFF_CAR
         }
     }
     // REVIEW
-    class CarReviewHolder(v: View, private val binding: ListItemReviewBinding): RecyclerView.ViewHolder(v){
-        private var view: View = v
+    class CarReviewHolder(private val binding: ListItemReviewBinding): RecyclerView.ViewHolder(binding.root){
         fun bind(item: CarInfo){
             var reviewData = CarInfoData.CarReview(
                 clientProfileImg = item.clientProfileImg,
