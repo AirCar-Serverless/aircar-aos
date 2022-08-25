@@ -65,13 +65,10 @@ class HomeFragment : Fragment() {
         loadCarInfo()
 
         val adapter = CarInfoAdapter(object : CarInfoAdapter.HolderEvent {
-            override fun onClickIssue() {
-                Log.d("HJ", "clicked")
-                val bundle = Bundle()
-                bundle.putString("number", "223")
-                bundle.putString("content", "213")
-
-                findNavController().navigate(R.id.action_home_fragment_to_car_info_fragment, bundle)
+            override fun onClickIssue(cid: String) {
+                val direction =
+                    HomeFragmentDirections.actionHomeFragmentToCarInfoFragment(cid)
+                findNavController().navigate(direction)
             }
         })
         binding.carList.adapter = adapter
