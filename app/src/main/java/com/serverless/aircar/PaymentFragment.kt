@@ -70,7 +70,7 @@ class PaymentFragment : Fragment() {
             rentTime.text = "${month}월 ${day}일 ${stHour}:${stMinute} - ${etHour}:${etMinute}"
 
             val price = DecimalFormat("#,###").format(priceInfoObject.getInt("price"))
-            price1.text = price
+            price1.text = price + "원"
             price2.text = price
         }
     }
