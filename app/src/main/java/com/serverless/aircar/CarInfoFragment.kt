@@ -85,6 +85,8 @@ class CarInfoFragment : Fragment() {
         val secondReviewObject: JSONObject = reviewArray[1] as JSONObject
         val thirdReviewObject: JSONObject = reviewArray[2] as JSONObject
 
+        binding.txtReservPrice.text = "총 ${priceInfoObject.getInt("price")}원"
+
         datas.apply {
             add(CarInfo(carImgList = carImgArray.toArrayList()))
             add(CarInfo(hostProfileImg = hostObject.getString("image"), hostName = hostObject.getString("name"), hostRate = hostObject.getString("grade")))
