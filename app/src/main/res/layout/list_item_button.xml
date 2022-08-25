@@ -5,7 +5,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:paddingHorizontal="20dp">
 
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btn_review"
         android:layout_width="match_parent"
         android:layout_height="45dp"

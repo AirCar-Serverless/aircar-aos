@@ -29,6 +29,7 @@ class HomeFragment : Fragment() {
     private lateinit var binding: FragmentHomeBinding
     private lateinit var mapView: MapView
     val carInfoMap = HashMap<Location, CarInfo>()
+    private lateinit var carId: String
 
     private val now = System.currentTimeMillis()
     private val currentDate = Date(now)
@@ -82,6 +83,12 @@ class HomeFragment : Fragment() {
         binding.constraintTime.setOnClickListener {
             val direction =
                 HomeFragmentDirections.actionHomeFragmentToTimeSetFragment()
+            findNavController().navigate(direction)
+        }
+
+        binding.lnCarInfo.setOnClickListener {
+            val direction =
+                HomeFragmentDirections.actionHomeFragmentToCarInfoFragment(carId)
             findNavController().navigate(direction)
         }
 
@@ -214,6 +221,7 @@ class HomeFragment : Fragment() {
             val lng = String.format("%.4f", p1.mapPoint.mapPointGeoCoord.longitude).toDouble()
             val carInfo = carInfoMap[Location(lat, lng)]!!
             carInfo.apply {
+                carId = cid
                 showCarInfo(imageUrl, price, name, oilType, reviewCount, stars)
             }
         }
@@ -231,9 +239,6 @@ class HomeFragment : Fragment() {
     private val mapViewEventListener = object : MapView.MapViewEventListener{
         override fun onMapViewSingleTapped(p0: MapView?, p1: MapPoint?) {
             binding.lnCarInfo.visibility = View.INVISIBLE
-            binding.lnCarInfo.setOnClickListener {
-                findNavController().navigate(R.id.action_home_fragment_to_car_info_fragment)
-            }
         }
         override fun onMapViewInitialized(p0: MapView?) {}
         override fun onMapViewCenterPointMoved(p0: MapView?, p1: MapPoint?) {}
