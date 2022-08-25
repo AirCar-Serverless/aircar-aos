@@ -1,6 +1,8 @@
 package com.serverless.aircar.adapters
 
+import android.util.Log
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
@@ -12,7 +14,7 @@ import com.serverless.aircar.data.CarInfo
 import com.serverless.aircar.databinding.ListItemCarBinding
 import java.text.DecimalFormat
 
-class CarInfoAdapter : ListAdapter<CarInfo, RecyclerView.ViewHolder>(CarInfoDiffCallback()) {
+class CarInfoAdapter(private val event: HolderEvent) : ListAdapter<CarInfo, RecyclerView.ViewHolder>(CarInfoDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return CarInfoViewHolder(
@@ -20,7 +22,8 @@ class CarInfoAdapter : ListAdapter<CarInfo, RecyclerView.ViewHolder>(CarInfoDiff
                 LayoutInflater.from(parent.context),
                 parent,
                 false
-            )
+            ),
+            event
         )
     }
 
@@ -30,13 +33,14 @@ class CarInfoAdapter : ListAdapter<CarInfo, RecyclerView.ViewHolder>(CarInfoDiff
     }
 
     class CarInfoViewHolder(
-        private val binding: ListItemCarBinding
+        private val binding: ListItemCarBinding,
+        private val event: HolderEvent
     ) :RecyclerView.ViewHolder(binding.root) {
-        init {
-            binding.setClickListener {
-                // TODO: 화면 이동
-            }
-        }
+//        init {
+//            binding.setClickListener {
+//                event.onClickIssue()
+//            }
+//        }
 
         fun bind(item: CarInfo) {
             binding.apply {
@@ -48,7 +52,15 @@ class CarInfoAdapter : ListAdapter<CarInfo, RecyclerView.ViewHolder>(CarInfoDiff
                 .load(item.imageUrl)
                 .transform(CenterCrop(), RoundedCorners(15))
                 .into(binding.imgCar)
+
+            binding.root.setOnClickListener {
+                event.onClickIssue()
+            }
         }
+    }
+
+    interface HolderEvent {
+        fun onClickIssue()
     }
 }
 

@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
@@ -62,7 +63,16 @@ class HomeFragment : Fragment() {
         showMap()
         loadCarInfo()
 
-        val adapter = CarInfoAdapter()
+        val adapter = CarInfoAdapter(object : CarInfoAdapter.HolderEvent {
+            override fun onClickIssue() {
+                Log.d("HJ", "clicked")
+                val bundle = Bundle()
+                bundle.putString("number", "223")
+                bundle.putString("content", "213")
+
+                findNavController().navigate(R.id.action_home_fragment_to_car_info_fragment, bundle)
+            }
+        })
         binding.carList.adapter = adapter
         adapter.submitList(getCarInfoList())
 
@@ -221,6 +231,9 @@ class HomeFragment : Fragment() {
     private val mapViewEventListener = object : MapView.MapViewEventListener{
         override fun onMapViewSingleTapped(p0: MapView?, p1: MapPoint?) {
             binding.lnCarInfo.visibility = View.INVISIBLE
+            binding.lnCarInfo.setOnClickListener {
+                findNavController().navigate(R.id.action_home_fragment_to_car_info_fragment)
+            }
         }
         override fun onMapViewInitialized(p0: MapView?) {}
         override fun onMapViewCenterPointMoved(p0: MapView?, p1: MapPoint?) {}
