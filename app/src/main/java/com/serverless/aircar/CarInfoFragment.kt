@@ -6,9 +6,14 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.serverless.aircar.data.Location
 import com.serverless.aircar.databinding.FragmentCarInfoBinding
 import com.serverless.aircar.databinding.FragmentHomeBinding
+import com.serverless.aircar.utilities.CAR1_FILENAME
+import com.serverless.aircar.utilities.CAR_INFO_FILENAME
 import net.daum.mf.map.api.MapView
+import org.json.JSONArray
+import org.json.JSONObject
 
 class CarInfoFragment : Fragment() {
 
@@ -64,8 +69,11 @@ class CarInfoFragment : Fragment() {
         val datas = mutableListOf<CarInfo>()
         binding.recyclerView.adapter = adapter
 
+        val jsonString = requireContext().assets.open(CAR1_FILENAME).reader().readText()
+        val carImgArray = JSONObject(jsonString).getJSONArray("imageList")
+
         datas.apply {
-            add(CarInfo())
+            add(CarInfo(carImgList = carImgArray.toArrayList()))
             add(CarInfo(hostProfileImg = "", hostName = "abcde", hostRate = 4.5))
             add(CarInfo(
                 carName = "Genesis",
@@ -81,6 +89,7 @@ class CarInfoFragment : Fragment() {
             add(CarInfo(clientProfileImg = "", clientName = "qwerty2", reviewDate = "2주", review = "생각보다 별로였어요"))
             add(CarInfo(clientProfileImg = "", clientName = "qwerty3", reviewDate = "2주", review = "생각보다 별로였어요"))
             add(CarInfo())
+            add(CarInfo(location_lat = "33.4503", location_lng = "126.9184"))
 
             adapter.submitList(datas)
             adapter.notifyDataSetChanged()
@@ -88,4 +97,13 @@ class CarInfoFragment : Fragment() {
 //        adapter.submitList(datas)
 //        adapter.notifyDataSetChanged()
     }
+}
+
+fun JSONArray.toArrayList(): ArrayList<String> {
+    val list = arrayListOf<String>()
+    for (i in 0 until this.length()) {
+        list.add(this.getString(i))
+    }
+
+    return list
 }

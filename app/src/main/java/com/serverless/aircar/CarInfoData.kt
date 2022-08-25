@@ -1,7 +1,7 @@
 package com.serverless.aircar
 
 data class CarInfo(
-    var carImgList: String = "",
+    var carImgList: List<String> = listOf(),
     var hostProfileImg: String = "",
     var hostName: String = "",
     var hostRate: Double = 0.0,
@@ -16,7 +16,9 @@ data class CarInfo(
     var clientProfileImg: String = "",
     var clientName: String = "",
     var reviewDate: String = "",
-    var review: String = ""
+    var review: String = "",
+    var location_lat: String = "33.4503",
+    var location_lng: String = "126.9184"
 )
 
 sealed class CarInfoData(
@@ -46,6 +48,11 @@ sealed class CarInfoData(
         var clientName: String,
         var reviewDate: String,
         var review: String,
+    ): CarInfoData()
+
+    data class CarLocation(
+        var location_lat: String,
+        var location_lng: String
     ): CarInfoData()
 
 }
