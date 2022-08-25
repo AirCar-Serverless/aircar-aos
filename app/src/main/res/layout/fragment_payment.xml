@@ -357,13 +357,15 @@
 
                             <ImageView
                                 android:layout_width="wrap_content"
-                                android:layout_height="wrap_content" />
+                                android:layout_height="wrap_content"
+                                android:src="@drawable/ic_kakao_pay"/>
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:layout_marginStart="15dp"
                                 android:text="카카오페이"
-                                android:textColor="@color/black" />
+                                android:textColor="@color/gray" />
 
                             <View
                                 android:layout_width="wrap_content"
