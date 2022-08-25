@@ -61,11 +61,11 @@ class HomeFragment : Fragment() {
         return mapView
     }
 
-    private fun showMarker(price: String, lat: Double, lng: Double) {
+    private fun showMarker(price: Int, lat: Double, lng: Double) {
         // 마커 찍기
         val marker = MapPOIItem()
         marker.apply {
-            itemName = price
+            itemName = DecimalFormat("#,###원").format(price) // 금액 표시
             mapPoint = MapPoint.mapPointWithGeoCoord(lat, lng)
             markerType = MapPOIItem.MarkerType.RedPin
         }
@@ -92,7 +92,7 @@ class HomeFragment : Fragment() {
                 val lng = jsonObject.getJSONObject("location").getDouble("lng")
 
                 carInfoMap[Location(lat, lng)] = CarInfo(cid, imageUrl, stars, reviewCount, price, name, oilType, startTime, endTime)
-                showMarker(price.toString(), lat, lng)
+                showMarker(price, lat, lng)
             }
         }
     }

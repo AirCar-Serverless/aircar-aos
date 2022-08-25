@@ -66,4 +66,6 @@ dependencies {
 
     //image slide
     implementation 'com.github.denzcoskun:ImageSlideshow:0.1.0'
+
+    implementation 'com.github.florent37:singledateandtimepicker:2.2.7'
 }

@@ -120,10 +120,15 @@
                 android:id="@+id/tv_rent_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="15dp"
+                android:layout_marginRight="10dp"
                 android:text="오늘 14:50"
                 android:textColor="@color/black"
                 android:layout_gravity="right"/>
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_down" />
 
         </LinearLayout>
 
@@ -162,10 +167,15 @@
                 android:id="@+id/tv_return_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="15dp"
+                android:layout_marginRight="10dp"
                 android:text="오늘 16:50"
                 android:textColor="@color/black"
                 android:layout_gravity="right"/>
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_down" />
 
         </LinearLayout>
 
