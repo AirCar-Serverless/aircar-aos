@@ -1,6 +1,7 @@
 package com.serverless.aircar
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.MenuItem
@@ -23,20 +24,11 @@ class TimeSetFragment : Fragment() {
         context ?: return binding.root
 
         (activity as AppCompatActivity).setSupportActionBar(binding.toolbar)
-        (activity as AppCompatActivity).supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
+        binding.btnBack.setOnClickListener {
+            findNavController().popBackStack()
+        }
 
         return binding.root
-    }
-
-    @Deprecated("Deprecated in Java")
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return when(item.itemId){
-            android.R.id.home -> {
-                findNavController().popBackStack()
-                true
-            }
-
-            else -> super.onOptionsItemSelected(item)
-        }
     }
 }
