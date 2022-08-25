@@ -3,7 +3,9 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/git/aircar-aos/app/src/main/res/drawable/bg_bottom_sheet.xml" value="0.1575" />
         <entry key="..\:/git/aircar-aos/app/src/main/res/drawable/bg_rounded.xml" value="0.142" />
+        <entry key="..\:/git/aircar-aos/app/src/main/res/drawable/ic_bottom_sheet_dragger.xml" value="0.1575" />
         <entry key="..\:/git/aircar-aos/app/src/main/res/layout/activity_main.xml" value="0.1375" />
         <entry key="..\:/git/aircar-aos/app/src/main/res/layout/fragment_car_info.xml" value="0.14791666666666667" />
         <entry key="..\:/git/aircar-aos/app/src/main/res/layout/fragment_home.xml" value="0.152" />

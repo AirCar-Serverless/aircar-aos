@@ -19,7 +19,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
             android:orientation="horizontal"
-            android:layout_marginBottom="35dp"
+            android:layout_marginBottom="82dp"
             android:background="@drawable/bg_rounded"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -43,6 +43,7 @@
                     android:text="145,000원"
                     android:textColor="@color/black"
                     android:textSize="18dp"
+                    android:textStyle="bold"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintStart_toStartOf="parent"/>
 
@@ -147,7 +148,7 @@
                     android:id="@+id/tv_time"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:text="오늘 14:50-16:50"
+                    android:text="오늘 14:50 - 16:50"
                     android:textColor="@color/gray"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -169,10 +170,27 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="vertical"
+                    android:paddingTop="8dp"
                     app:behavior_hideable="false"
-                    app:behavior_peekHeight="20dp"
+                    app:behavior_peekHeight="67dp"
                     app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior"
-                    android:background="@color/orange" />
+                    android:background="@drawable/bg_bottom_sheet">
+
+                    <ImageView
+                        android:layout_width="26dp"
+                        android:layout_height="4dp"
+                        android:layout_gravity="center"
+                        android:layout_marginBottom="20dp"
+                        android:src="@drawable/ic_bottom_sheet_dragger" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="주변 차량 n대"
+                        android:textColor="@color/black" />
+
+                </LinearLayout>
 
             </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
