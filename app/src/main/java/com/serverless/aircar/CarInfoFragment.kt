@@ -9,9 +9,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.serverless.aircar.adapters.RecyclerAdapter
+import com.serverless.aircar.data.Location
 import com.serverless.aircar.databinding.FragmentCarInfoBinding
 import com.serverless.aircar.utilities.CAR1_FILENAME
+import com.serverless.aircar.utilities.CAR_INFO_FILENAME
 import org.json.JSONArray
 import org.json.JSONObject
 
@@ -23,6 +26,7 @@ class CarInfoFragment : Fragment() {
 
     private lateinit var number: String
     private lateinit var content: String
+    private lateinit var cid: String
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -34,8 +38,11 @@ class CarInfoFragment : Fragment() {
             Log.d("HJ", number+"/"+content)
         }
         _binding = FragmentCarInfoBinding.inflate(inflater, container, false)
-
         context ?: return binding.root
+
+        val args: CarInfoFragmentArgs by navArgs()
+        cid = args.cid
+        initRecycler(cid)
 
         return binding.root
     }
@@ -43,25 +50,34 @@ class CarInfoFragment : Fragment() {
     @SuppressLint("NotifyDataSetChanged")
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        initRecycler()
+
         binding.btnCarInfoBack.setOnClickListener {
             findNavController().popBackStack()
         }
+
+        binding.reservationBtn.setOnClickListener {
+            val direction =
+                CarInfoFragmentDirections.actionCarInfoFragmentToPaymentFragment(cid)
+            findNavController().navigate(direction)
+        }
     }
 
-    private fun initRecycler() {
+    private fun initRecycler(cid: String) {
         val adapter = RecyclerAdapter()
         val datas = mutableListOf<CarInfo>()
         binding.recyclerView.adapter = adapter
 
-        val jsonString = requireContext().assets.open(CAR1_FILENAME).reader().readText()
+        val jsonString = requireContext().assets.open("$cid.json").reader().readText()
         val carImgArray = JSONObject(jsonString).getJSONArray("imageList")
-//        val optionArray = JSONObject(jsonString).getJSONArray("carInfo")
-//        Log.d("HJ", optionArray.toString())
+        val imageList = mutableListOf<String>()
+        for (i in 0 until carImgArray.length()) {
+            imageList.add(carImgArray.getString(i))
+        }
+        val hostObject = JSONObject(jsonString).getJSONObject("host")
 
         datas.apply {
-            add(CarInfo(carImgList = carImgArray.toArrayList()))
-            add(CarInfo(hostProfileImg = "", hostName = "abcde", hostRate = 4.5))
+            add(CarInfo(carImgList = imageList))
+            add(CarInfo(hostProfileImg = hostObject.getString("image"), hostName = hostObject.getString("name"), hostRate = hostObject.getString("grade")))
             add(CarInfo(
                 carName = "Genesis",
                 carInfoType = "가나",
@@ -84,13 +100,4 @@ class CarInfoFragment : Fragment() {
             }
         }
     }
-}
-
-fun JSONArray.toArrayList(): ArrayList<String> {
-    val list = arrayListOf<String>()
-    for (i in 0 until this.length()) {
-        list.add(this.getString(i))
-    }
-
-    return list
 }

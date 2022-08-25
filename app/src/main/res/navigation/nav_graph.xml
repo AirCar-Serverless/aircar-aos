@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/payment_fragment">
+    app:startDestination="@id/home_fragment">
 
     <fragment
         android:id="@+id/home_fragment"
@@ -33,6 +33,16 @@
         android:label="CarInfo Fragment"
         tools:layout="@layout/fragment_car_info">
 
+        <action
+            android:id="@+id/action_car_info_fragment_to_payment_fragment"
+            app:destination="@id/payment_fragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
+        <argument
+            android:name="cid"
+            app:argType="string"/>
     </fragment>
 
     <fragment
@@ -56,6 +66,9 @@
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right"/>
+        <argument
+            android:name="cid"
+            app:argType="string"/>
     </fragment>
 
     <fragment

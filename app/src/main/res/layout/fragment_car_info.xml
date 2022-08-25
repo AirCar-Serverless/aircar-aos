@@ -6,7 +6,8 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".CarInfoFragment">
+        tools:context=".CarInfoFragment"
+        android:background="@color/white">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -80,7 +81,7 @@
                     android:textSize="12dp"
                     android:textColor="#333333"/>
 
-                <Button
+                <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/reservation_btn"
                     android:text="예약하기"
                     android:textColor="#FFFFFF"

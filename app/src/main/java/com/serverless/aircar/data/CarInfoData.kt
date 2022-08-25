@@ -4,7 +4,7 @@ data class CarInfo(
     var carImgList: List<String> = listOf(),
     var hostProfileImg: String = "",
     var hostName: String = "",
-    var hostRate: Double = 0.0,
+    var hostRate: String = "",
     var carName: String = "",
     var carInfoType: String = "",
     var carInfoShapeType: String = "",
@@ -28,7 +28,7 @@ sealed class CarInfoData(
     data class HostInfo(
         var hostProfileImg: String,
         var hostName: String,
-        var hostRate: Double
+        var hostRate: String
     ): CarInfoData()
 
     data class CarInfo(
