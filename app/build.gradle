@@ -55,4 +55,8 @@ dependencies {
 
     // Kakao maps sdk
     implementation files('libs/libDaumMapAndroid.jar')
+
+    // Glide
+    implementation "com.github.bumptech.glide:glide:$rootProject.glideVersion"
+    annotationProcessor "com.github.bumptech.glide:compiler:$rootProject.glideVersion"
 }

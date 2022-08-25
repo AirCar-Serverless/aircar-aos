@@ -2,6 +2,7 @@
 buildscript {
     ext {
         navigationVersion = "2.5.1"
+        glideVersion = "4.12.0"
     }
 
     dependencies {
