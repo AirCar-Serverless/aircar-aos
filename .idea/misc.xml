@@ -3,23 +3,14 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-<<<<<<< HEAD
         <entry key="..\:/git/aircar-aos/app/src/main/res/drawable/bg_bottom_sheet.xml" value="0.1575" />
         <entry key="..\:/git/aircar-aos/app/src/main/res/drawable/bg_rounded.xml" value="0.142" />
         <entry key="..\:/git/aircar-aos/app/src/main/res/drawable/ic_bottom_sheet_dragger.xml" value="0.1575" />
-=======
-        <entry key="..\:/Users/dltbx/AndroidStudioProjects/aircar-aos/app/src/main/res/layout/bottom_car_info.xml" value="0.3333333333333333" />
-        <entry key="..\:/Users/dltbx/AndroidStudioProjects/aircar-aos/app/src/main/res/layout/fragment_car_info.xml" value="0.1" />
-        <entry key="..\:/Users/dltbx/AndroidStudioProjects/aircar-aos/app/src/main/res/layout/list_item_button.xml" value="0.3333333333333333" />
-        <entry key="..\:/Users/dltbx/AndroidStudioProjects/aircar-aos/app/src/main/res/layout/list_item_car_info.xml" value="0.1" />
-        <entry key="..\:/Users/dltbx/AndroidStudioProjects/aircar-aos/app/src/main/res/layout/list_item_host_info.xml" value="0.4466666666666667" />
-        <entry key="..\:/Users/dltbx/AndroidStudioProjects/aircar-aos/app/src/main/res/layout/list_item_img.xml" value="0.215625" />
-        <entry key="..\:/Users/dltbx/AndroidStudioProjects/aircar-aos/app/src/main/res/layout/list_item_review.xml" value="0.1" />
-        <entry key="..\:/Users/dltbx/AndroidStudioProjects/aircar-aos/app/src/main/res/layout/list_item_review_stars.xml" value="0.2453125" />
->>>>>>> car-info
         <entry key="..\:/git/aircar-aos/app/src/main/res/layout/activity_main.xml" value="0.1375" />
         <entry key="..\:/git/aircar-aos/app/src/main/res/layout/fragment_car_info.xml" value="0.14791666666666667" />
         <entry key="..\:/git/aircar-aos/app/src/main/res/layout/fragment_home.xml" value="0.152" />
+        <entry key="..\:/git/aircar-aos/app/src/main/res/layout/list_item_car.xml" value="0.176" />
+        <entry key="..\:/git/aircar-aos/app/src/main/res/layout/list_item_car_info.xml" value="0.14791666666666667" />
         <entry key="..\:/git/aircar-aos/app/src/main/res/xml/network_security_config.xml" value="0.146875" />
       </map>
     </option>

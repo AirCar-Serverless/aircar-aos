@@ -4,22 +4,20 @@ import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
-import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
+import com.serverless.aircar.adapters.CarInfoAdapter
 import com.serverless.aircar.data.CarInfo
 import com.serverless.aircar.data.Location
 import com.serverless.aircar.databinding.FragmentHomeBinding
 import com.serverless.aircar.utilities.CAR_INFO_FILENAME
-import net.daum.android.map.MapViewTouchEventListener
 import net.daum.mf.map.api.MapPOIItem
 import net.daum.mf.map.api.MapPoint
 import net.daum.mf.map.api.MapView
 import org.json.JSONObject
 import java.text.DecimalFormat
-import kotlin.math.floor
 
 class HomeFragment : Fragment() {
 
@@ -36,6 +34,11 @@ class HomeFragment : Fragment() {
 
         showMap()
         loadCarInfo()
+
+        val adapter = CarInfoAdapter()
+        binding.carList.adapter = adapter
+        adapter.submitList(getCarInfoList())
+
         mapView.setPOIItemEventListener(markerListener)
         mapView.setMapViewEventListener(mapViewEventListener)
 
@@ -102,22 +105,21 @@ class HomeFragment : Fragment() {
                 .transition(DrawableTransitionOptions.withCrossFade())
                 .into(imgCar)
 
-            // 금액 표시
-            val priceStr = DecimalFormat("#,###원").format(price)
-            tvPrice.text = priceStr
-
-            // 차량 이름 표시
-            tvName.text = name
-
-            // 오일 타입 표시
-            tvOilType.text = oilType
-
-            // 리뷰 개수 표시
-            tvReviewCount.text = reviewCount.toString()
-
-            // 평점 표시
-            tvScore.text = stars.toString()
+            tvPrice.text = DecimalFormat("#,###원").format(price) // 금액 표시
+            tvName.text = name // 차량 이름 표시
+            tvOilType.text = oilType // 오일 타입 표시
+            tvReviewCount.text = reviewCount.toString() // 리뷰 개수 표시
+            tvScore.text = stars.toString() // 평점 표시
         }
+    }
+
+    private fun getCarInfoList(): List<CarInfo> {
+        val carInfoList = mutableListOf<CarInfo>()
+        carInfoMap.map {
+            carInfoList.add(it.value)
+        }
+
+        return carInfoList
     }
 
     // marker 클릭 리스너
