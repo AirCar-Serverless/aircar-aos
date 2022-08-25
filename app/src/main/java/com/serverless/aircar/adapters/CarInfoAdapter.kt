@@ -54,13 +54,13 @@ class CarInfoAdapter(private val event: HolderEvent) : ListAdapter<CarInfo, Recy
                 .into(binding.imgCar)
 
             binding.root.setOnClickListener {
-                event.onClickIssue()
+                event.onClickIssue(binding.carInfo!!.cid)
             }
         }
     }
 
     interface HolderEvent {
-        fun onClickIssue()
+        fun onClickIssue(cid: String)
     }
 }
 

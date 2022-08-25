@@ -82,14 +82,45 @@
                             app:layout_constraintTop_toTopOf="parent"
                             app:layout_constraintStart_toStartOf="parent">
 
-                            <TextView
+                            <LinearLayout
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="카니발 9인승"
-                                android:textColor="@color/black"
-                                android:textStyle="bold"/>
+                                android:orientation="horizontal">
+
+                                <TextView
+                                    android:id="@+id/car_name"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="카니발"
+                                    android:textColor="@color/black"
+                                    android:textStyle="bold"/>
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text=" "
+                                    android:textColor="@color/black"
+                                    android:textStyle="bold"/>
+
+                                <TextView
+                                    android:id="@+id/car_limit"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="9인"
+                                    android:textColor="@color/black"
+                                    android:textStyle="bold"/>
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="승"
+                                    android:textColor="@color/black"
+                                    android:textStyle="bold"/>
+
+                            </LinearLayout>
 
                             <TextView
+                                android:id="@+id/oil_type"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="10dp"
@@ -128,6 +159,7 @@
                                 android:textColor="@color/orange" />
 
                             <TextView
+                                android:id="@+id/review_count"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="42"
@@ -180,6 +212,7 @@
                                 android:layout_weight="1" />
 
                             <TextView
+                                android:id="@+id/rent_time"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="8월 25일 13:30 - 15:30"
@@ -419,6 +452,7 @@
                                     android:layout_weight="1" />
 
                                 <TextView
+                                    android:id="@+id/price1"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:text="154,800원"
@@ -507,6 +541,7 @@
                             android:layout_weight="1" />
 
                         <TextView
+                            android:id="@+id/price2"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="154,800"
