@@ -5,6 +5,9 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.CenterCrop
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.serverless.aircar.data.CarInfo
 import com.serverless.aircar.databinding.ListItemCarBinding
 import java.text.DecimalFormat
@@ -41,6 +44,10 @@ class CarInfoAdapter : ListAdapter<CarInfo, RecyclerView.ViewHolder>(CarInfoDiff
                 tvPrice.text = DecimalFormat("#,###원").format(item.price)
                 executePendingBindings()
             }
+            Glide.with(itemView)
+                .load(item.imageUrl)
+                .transform(CenterCrop(), RoundedCorners(15))
+                .into(binding.imgCar)
         }
     }
 }
