@@ -1,8 +1,10 @@
 package com.serverless.aircar
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import com.bumptech.glide.Glide
@@ -11,10 +13,13 @@ import com.serverless.aircar.data.CarInfo
 import com.serverless.aircar.data.Location
 import com.serverless.aircar.databinding.FragmentHomeBinding
 import com.serverless.aircar.utilities.CAR_INFO_FILENAME
+import net.daum.android.map.MapViewTouchEventListener
 import net.daum.mf.map.api.MapPOIItem
 import net.daum.mf.map.api.MapPoint
 import net.daum.mf.map.api.MapView
 import org.json.JSONObject
+import java.text.DecimalFormat
+import kotlin.math.floor
 
 class HomeFragment : Fragment() {
 
@@ -29,14 +34,10 @@ class HomeFragment : Fragment() {
         binding = FragmentHomeBinding.inflate(inflater, container, false)
         context ?: return binding.root
 
-        // TODO: delete code
-        Glide.with(requireContext())
-            .load("https://i.imgur.com/tDdSdB2.png")
-            .transition(DrawableTransitionOptions.withCrossFade())
-            .into(binding.imgCar)
-
         showMap()
         loadCarInfo()
+        mapView.setPOIItemEventListener(markerListener)
+        mapView.setMapViewEventListener(mapViewEventListener)
 
         return binding.root
     }
@@ -84,5 +85,75 @@ class HomeFragment : Fragment() {
                 showMarker(price.toString(), lat, lng)
             }
         }
+    }
+
+    private fun showCarInfo(
+        imageUrl: String,
+        price: Int,
+        name: String,
+        oilType: String,
+        reviewCount: Int,
+        stars: Double) {
+
+        with(binding) {
+            // 이미지 표시
+            Glide.with(requireContext())
+                .load(imageUrl)
+                .transition(DrawableTransitionOptions.withCrossFade())
+                .into(imgCar)
+
+            // 금액 표시
+            val priceStr = DecimalFormat("#,###원").format(price)
+            tvPrice.text = priceStr
+
+            // 차량 이름 표시
+            tvName.text = name
+
+            // 오일 타입 표시
+            tvOilType.text = oilType
+
+            // 리뷰 개수 표시
+            tvReviewCount.text = reviewCount.toString()
+
+            // 평점 표시
+            tvScore.text = stars.toString()
+        }
+    }
+
+    // marker 클릭 리스너
+    private val markerListener = object : MapView.POIItemEventListener {
+        override fun onPOIItemSelected(p0: MapView?, p1: MapPOIItem?) {
+            binding.lnCarInfo.visibility = View.VISIBLE
+
+            val lat = String.format("%.4f", p1!!.mapPoint.mapPointGeoCoord.latitude).toDouble()
+            val lng = String.format("%.4f", p1.mapPoint.mapPointGeoCoord.longitude).toDouble()
+            val carInfo = carInfoMap[Location(lat, lng)]!!
+            carInfo.apply {
+                showCarInfo(imageUrl, price, name, oilType, reviewCount, stars)
+            }
+        }
+        @Deprecated("Deprecated in Java")
+        override fun onCalloutBalloonOfPOIItemTouched(p0: MapView?, p1: MapPOIItem?) {}
+        override fun onCalloutBalloonOfPOIItemTouched(
+            p0: MapView?,
+            p1: MapPOIItem?,
+            p2: MapPOIItem.CalloutBalloonButtonType?
+        ) {}
+        override fun onDraggablePOIItemMoved(p0: MapView?, p1: MapPOIItem?, p2: MapPoint?) {}
+    }
+
+    // 지도 클릭 리스너
+    private val mapViewEventListener = object : MapView.MapViewEventListener{
+        override fun onMapViewSingleTapped(p0: MapView?, p1: MapPoint?) {
+            binding.lnCarInfo.visibility = View.INVISIBLE
+        }
+        override fun onMapViewInitialized(p0: MapView?) {}
+        override fun onMapViewCenterPointMoved(p0: MapView?, p1: MapPoint?) {}
+        override fun onMapViewZoomLevelChanged(p0: MapView?, p1: Int) {}
+        override fun onMapViewDoubleTapped(p0: MapView?, p1: MapPoint?) {}
+        override fun onMapViewLongPressed(p0: MapView?, p1: MapPoint?) {}
+        override fun onMapViewDragStarted(p0: MapView?, p1: MapPoint?) {}
+        override fun onMapViewDragEnded(p0: MapView?, p1: MapPoint?) {}
+        override fun onMapViewMoveFinished(p0: MapView?, p1: MapPoint?) {}
     }
 }
