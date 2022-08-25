@@ -6,16 +6,18 @@ data class CarInfo(
     var hostName: String = "",
     var hostRate: Double = 0.0,
     var carName: String = "",
-    var carType1: String = "",
-    var carType2: String = "",
-    var carType3: String = "",
-    var carType4: String = "",
-    var carType5: String = "",
-    var carType6: String = "",
+    var carInfoType: String = "",
+    var carInfoShapeType: String = "",
+    var carInfoCount: Int = 0,
+    var carInfoFuelType: String = "",
+    var carInfoDetail: String = "",
+    var carOptions: List<String> = listOf(),
+    var reviewCnt: Int = 0,
     var carRate: Double = 0.0,
     var clientProfileImg: String = "",
     var clientName: String = "",
     var reviewDate: String = "",
+    var reviewRate: Double = 0.0,
     var review: String = "",
     var location_lat: String = "33.4503",
     var location_lng: String = "126.9184"
@@ -31,15 +33,15 @@ sealed class CarInfoData(
 
     data class CarInfo(
         var carName: String,
-        var carType1: String,
-        var carType2: String,
-        var carType3: String,
-        var carType4: String,
-        var carType5: String,
-        var carType6: String //나중에 수정
+        var carInfoType: String,
+        var carInfoShapeType: String,
+        var carInfoCount: Int,
+        var carInfoFuelType: String,
+        var carInfoDetail: String//나중에 수정
     ): CarInfoData()
 
     data class CarReviewInfo(
+        var carReviewCnt: Int,
         var carRate: Double
     ): CarInfoData()
 
@@ -47,6 +49,7 @@ sealed class CarInfoData(
         var clientProfileImg: String,
         var clientName: String,
         var reviewDate: String,
+        var reviewRate: Double,
         var review: String,
     ): CarInfoData()
 
