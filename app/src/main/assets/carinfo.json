@@ -1,0 +1,89 @@
+{
+  "carList"  :  [
+    {
+      "cid" : "goormcar1",
+      "image" : "https://i.imgur.com/C7etyej.jpg",
+      "stars" :  4.7,
+      "reviews" : 157,
+      "price" : 8300,
+      "name" : "올뉴모닝",
+      "oilType" : "휘발유",
+      "available" : {
+        "st" : "2022-08-26T01:00:00.000Z",
+        "et" : "2022-08-26T23:00:00.000Z"
+      },
+      "location" : {
+        "lat" : "33.4501",
+        "lng" : "126.9184"
+      }
+    },
+    {
+      "cid" : "goormcar2",
+      "image" : "https://i.imgur.com/lL0LUXw.jpg",
+      "stars" :  3.5,
+      "reviews" : 99,
+      "price" : 12000,
+      "name" : "아반떼 CN7",
+      "oilType" : "휘발유",
+      "available" : {
+        "st" : "2022-08-26T13:00:00.000Z",
+        "et" : "2022-08-26T16:00:00.000Z"
+      },
+      "location" : {
+        "lat" : "33.4497",
+        "lng" : "126.9172"
+      }
+    },
+    {
+      "cid" : "goormcar3",
+      "image" : "https://i.imgur.com/DMtlu3h.jpg",
+      "stars" :  4.5,
+      "reviews" : 334,
+      "price" : 13400,
+      "name" : "투싼NX4",
+      "oilType" : "휘발유",
+      "available" : {
+        "st" : "2022-08-26T01:00:00.000Z",
+        "et" : "2022-08-26T23:00:00.000Z"
+      },
+      "location" : {
+        "lat" : "33.4493",
+        "lng" : "126.9166"
+      }
+    },
+    {
+      "cid" : "goormcar4",
+      "image" : "https://i.imgur.com/xhooVIA.jpg",
+      "stars" :  4.3,
+      "reviews" : 293,
+      "price" : 13700,
+      "name" : "K5",
+      "oilType" : "휘발유",
+      "available" : {
+        "st" : "2022-08-26T15:00:00.000Z",
+        "et" : "2022-08-27T20:00:00.000Z"
+      },
+      "location" : {
+        "lat" : "33.4498",
+        "lng" : "126.9213"
+      }
+    },
+    {
+      "cid" : "goormcar5",
+      "image" : "https://i.imgur.com/Oqpj06J.jpg",
+      "stars" :  4.9,
+      "reviews" : 45,
+      "price" : 14600,
+      "name" : "K7",
+      "oilType" : "휘발유",
+      "available" : {
+        "st" : "2022-08-26T01:00:00.000Z",
+        "et" : "2022-08-26T23:00:00.000Z"
+      },
+      "location" : {
+        "lat" : "33.4487",
+        "lng" : "126.9201"
+      }
+    }
+  ]
+}
