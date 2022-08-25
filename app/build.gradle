@@ -63,4 +63,7 @@ dependencies {
 
     //circle image view
     implementation "de.hdodenhof:circleimageview:$rootProject.circleImageViewVersion"
+
+    //image slide
+    implementation 'com.github.denzcoskun:ImageSlideshow:0.1.0'
 }

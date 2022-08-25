@@ -1,0 +1,58 @@
+{
+  "imageList" : [
+    "https://i.imgur.com/C7etyej.jpg",
+    "https://i.imgur.com/EnbPt41.jpg"
+  ],
+  "host" : {
+    "image" : "https://i.imgur.com/7xIDtJ2.png",
+    "name" : "재민",
+    "grade" : "ROYAL"
+  },
+  "carInfo" : {
+    "name" : "K7",
+    "type" : "준대형",
+    "limit" : "5인",
+    "gearType" : "자동",
+    "oilType" : "휘발유",
+    "options" : ["에어백", "블루투스", "열선시트", "후방 감지 센서", "네비게이션"],
+    "smoke" : 0
+  },
+  "review" : {
+    "stars" : 4.9,
+    "reviews" : [
+      {
+        "image" : "https://i.imgur.com/7xIDtJ2.png",
+        "name" : "재용",
+        "date" : "2022-08-25T15:30:00.000Z",
+        "content" : "차도 깨끗하고 관리도 잘 되어있어서 좋았어요 다음에 제주도 놀러와서도 또 빌리고 싶어요"
+      },
+      {
+        "image" : "https://i.imgur.com/7xIDtJ2.png",
+        "name" : "유지",
+        "date" : "2022-08-23T15:30:00.000Z",
+        "content" : "호스트 분이 친절해서 너무 좋았어요 빌릴 때 커피도 사줬어요"
+      },
+      {
+        "image" : "https://i.imgur.com/7xIDtJ2.png",
+        "name" : "현정",
+        "date" : "2022-08-10T15:30:00.000Z",
+        "content" : "상태가 좋아서 그런지 시원시원하게 잘 나가요"
+      },
+      {
+        "image" : "https://i.imgur.com/7xIDtJ2.png",
+        "name" : "구름이",
+        "date" : "2022-08-21T15:30:00.000Z",
+        "content" : "구름톤하러 갈 때 빌렸는데 너무 잘 썼어요 차도 깨끗하고 좋아요"
+      }
+    ]
+  },
+  "location" : {
+    "lat" : "33.4487",
+    "lng" : "126.9201"
+  },
+  "priceInfo" : {
+    "price" : 14600,
+    "st" : "2022-08-26T15:30:00.000Z",
+    "et" : "2022-08-26T17:30:00.000Z"
+  }
+}

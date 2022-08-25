@@ -1,20 +1,20 @@
-package com.serverless.aircar
+package com.serverless.aircar.adapters
 
 import android.annotation.SuppressLint
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.serverless.aircar.databinding.ListItemCarInfoBinding
-import com.serverless.aircar.databinding.ListItemHostInfoBinding
-import com.serverless.aircar.databinding.ListItemReviewBinding
-import com.serverless.aircar.databinding.ListItemReviewStarsBinding
-import de.hdodenhof.circleimageview.CircleImageView
+import com.denzcoskun.imageslider.models.SlideModel
+import com.serverless.aircar.databinding.*
+import com.denzcoskun.imageslider.constants.ScaleTypes
+import com.denzcoskun.imageslider.interfaces.ItemChangeListener
+import com.serverless.aircar.CarInfo
+import com.serverless.aircar.CarInfoData
+import com.serverless.aircar.R
 
 class RecyclerAdapter() : ListAdapter<CarInfo, RecyclerView.ViewHolder>(DIFF_CAR_INFO) {
 
@@ -24,8 +24,12 @@ class RecyclerAdapter() : ListAdapter<CarInfo, RecyclerView.ViewHolder>(DIFF_CAR
         return when (viewType) {
             //이미지 슬라이드
             InfoType.IMAGE.ordinal -> {
-                val view = LayoutInflater.from(parent.context).inflate(R.layout.list_item_img, parent, false)
-                ImageHolder(view)
+                val viewBinding = ListItemImgBinding.inflate(
+                    LayoutInflater.from(parent.context),
+                    parent,
+                    false
+                )
+                ImageHolder(viewBinding)
             }
             //호스트 정보
             InfoType.HOSTINFO.ordinal -> {
@@ -63,6 +67,15 @@ class RecyclerAdapter() : ListAdapter<CarInfo, RecyclerView.ViewHolder>(DIFF_CAR
                 )
                 CarReviewHolder(viewBinding)
             }
+            //지도
+            InfoType.LOCATION.ordinal -> {
+                val viewBinding = ListItemLocationBinding.inflate(
+                    LayoutInflater.from(parent.context),
+                    parent,
+                    false
+                )
+                LocationHolder(viewBinding)
+            }
             //버튼
             else -> {
                 val view = LayoutInflater.from(parent.context).inflate(R.layout.list_item_button, parent, false)
@@ -72,7 +85,6 @@ class RecyclerAdapter() : ListAdapter<CarInfo, RecyclerView.ViewHolder>(DIFF_CAR
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        Log.d("HJ", holder.toString())
         when (holder) {
             is ImageHolder -> {
                 holder.bind(getItem(position))
@@ -92,22 +104,36 @@ class RecyclerAdapter() : ListAdapter<CarInfo, RecyclerView.ViewHolder>(DIFF_CAR
             is ButtonHolder -> {
                 holder.bind()
             }
+            is LocationHolder -> {
+                holder.bind(getItem(position))
+            }
         }
     }
 
     // 이미지, 텍스트에 따른 각 홀더 만들어두기
     //IMAGE
-    class ImageHolder(v: View): RecyclerView.ViewHolder(v){
-        private var view: View = v
+    class ImageHolder(private val binding: ListItemImgBinding): RecyclerView.ViewHolder(binding.root){
         fun bind(item: CarInfo){
-
+            val imageList = ArrayList<SlideModel>()
+            for (img in item.carImgList){
+                imageList.add(SlideModel(img))
+            }
+//            imageList.add(SlideModel("https://bit.ly/2YoJ77H"))
+            val imageListSize = imageList.size
+            binding.imageSlider.setImageList(imageList, ScaleTypes.CENTER_CROP)
+            binding.txtImgSlidePos.text = "1/${imageListSize}"
+            binding.imageSlider.setItemChangeListener(object : ItemChangeListener {
+                override fun onItemChanged(position: Int) {
+                    //println("Pos: " + position)
+                    binding.txtImgSlidePos.text = "${position+1}/${imageListSize}"
+                }
+            })
         }
     }
     // HOSTINFO
     class HostHolder(private val binding: ListItemHostInfoBinding):RecyclerView.ViewHolder(binding.root){
         @SuppressLint("SetTextI18n")
         fun bind(item: CarInfo){
-            Log.d("HJ", item.toString())
             var hostInfo = CarInfoData.HostInfo(
                 hostProfileImg = item.hostProfileImg,
                 hostName = item.hostName,
@@ -115,8 +141,8 @@ class RecyclerAdapter() : ListAdapter<CarInfo, RecyclerView.ViewHolder>(DIFF_CAR
             )
             with(binding){
                 if(hostInfo.hostProfileImg.isNotBlank()) Glide.with(itemView).load(hostInfo.hostProfileImg).into(imgHostProfile)
+                else Glide.with(itemView).load(R.drawable.img_default_profile).into(imgHostProfile)
                 txtHostName.text = hostInfo.hostName
-                txtHostRate.text = "별점(${hostInfo.hostRate}"
             }
         }
     }
@@ -163,6 +189,7 @@ class RecyclerAdapter() : ListAdapter<CarInfo, RecyclerView.ViewHolder>(DIFF_CAR
             )
             with(binding){
                 if(reviewData.clientProfileImg.isNotBlank()) Glide.with(itemView).load(reviewData.clientProfileImg).into(imgClientProfile)
+                else Glide.with(itemView).load(R.drawable.img_default_profile).into(imgClientProfile)
                 txtClientName.text = reviewData.clientName
                 txtClientTime.text = "${reviewData.reviewDate} 전"
                 txtReviewContent.text = reviewData.review
@@ -175,6 +202,14 @@ class RecyclerAdapter() : ListAdapter<CarInfo, RecyclerView.ViewHolder>(DIFF_CAR
         fun bind(){
         }
     }
+    //LOCATION
+    class LocationHolder(private val binding: ListItemLocationBinding): RecyclerView.ViewHolder(binding.root){
+        fun bind(item: CarInfo){
+//            mapView = MapView()
+//            binding.viewLocationMap.addView(mapView)
+//            mapView.currentLocationTrackingMode = MapView.CurrentLocationTrackingMode.TrackingModeOnWithHeading
+        }
+    }
 
     override fun getItemViewType(position: Int): Int {
         return when (position) {
@@ -183,12 +218,24 @@ class RecyclerAdapter() : ListAdapter<CarInfo, RecyclerView.ViewHolder>(DIFF_CAR
             2 -> InfoType.CARINFO.ordinal
             3 -> InfoType.RATE.ordinal
             7 -> InfoType.BUTTON.ordinal
+            8 -> InfoType.LOCATION.ordinal
             else -> InfoType.REVIEW.ordinal
         }
     }
 
+//    private fun showMarker(price: String, lat: Double, lng: Double) {
+//        // 마커 찍기
+//        val marker = MapPOIItem()
+//        marker.apply {
+//            itemName = price
+//            mapPoint = MapPoint.mapPointWithGeoCoord(lat, lng)
+//            markerType = MapPOIItem.MarkerType.RedPin
+//        }
+//        mapView.addPOIItem(marker)
+//    }
+
     enum class InfoType {
-        IMAGE, HOSTINFO, CARINFO, RATE, REVIEW, BUTTON
+        IMAGE, HOSTINFO, CARINFO, RATE, REVIEW, BUTTON, LOCATION
     }
 
     companion object {
