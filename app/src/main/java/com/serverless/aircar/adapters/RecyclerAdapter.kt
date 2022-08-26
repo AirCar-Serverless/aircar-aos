@@ -18,7 +18,10 @@ import com.denzcoskun.imageslider.constants.ScaleTypes
 import com.denzcoskun.imageslider.interfaces.ItemChangeListener
 import com.serverless.aircar.*
 import com.serverless.aircar.data.Option
+import net.daum.mf.map.api.MapPOIItem
+import net.daum.mf.map.api.MapPoint
 import net.daum.mf.map.api.MapView
+import java.text.DecimalFormat
 
 class RecyclerAdapter(val context: Context) : ListAdapter<CarInfo, RecyclerView.ViewHolder>(DIFF_CAR_INFO) {
 
@@ -88,8 +91,6 @@ class RecyclerAdapter(val context: Context) : ListAdapter<CarInfo, RecyclerView.
                     parent,
                     false
                 )
-                mapView = MapView(context)
-                viewBinding.mapView.addView(mapView)
                 LocationHolder(viewBinding)
             }
             //버튼
@@ -245,6 +246,18 @@ class RecyclerAdapter(val context: Context) : ListAdapter<CarInfo, RecyclerView.
     inner class LocationHolder(private val binding: ListItemLocationBinding): RecyclerView.ViewHolder(binding.root){
         fun bind(item: CarInfo){
             locationBinding = binding
+            mapView = MapView(context)
+            binding.mapView.addView(mapView)
+            mapView.currentLocationTrackingMode = MapView.CurrentLocationTrackingMode.TrackingModeOff
+            mapView.setMapCenterPoint(MapPoint.mapPointWithGeoCoord(item.location_lat.toDouble(), item.location_lng.toDouble()), true)
+
+            val marker = MapPOIItem()
+            marker.apply {
+                itemName = item.carName
+                mapPoint = MapPoint.mapPointWithGeoCoord(item.location_lat.toDouble(), item.location_lng.toDouble())
+                markerType = MapPOIItem.MarkerType.RedPin
+            }
+            mapView.addPOIItem(marker)
         }
     }
 
