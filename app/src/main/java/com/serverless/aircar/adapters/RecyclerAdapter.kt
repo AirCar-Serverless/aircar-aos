@@ -16,16 +16,18 @@ import com.denzcoskun.imageslider.models.SlideModel
 import com.serverless.aircar.databinding.*
 import com.denzcoskun.imageslider.constants.ScaleTypes
 import com.denzcoskun.imageslider.interfaces.ItemChangeListener
-import com.serverless.aircar.CarInfo
-import com.serverless.aircar.CarInfoData
-import com.serverless.aircar.HomeFragment
-import com.serverless.aircar.R
+import com.serverless.aircar.*
 import com.serverless.aircar.data.Option
-import net.daum.android.map.MapView
+import net.daum.mf.map.api.MapPOIItem
+import net.daum.mf.map.api.MapPoint
+import net.daum.mf.map.api.MapView
+import java.text.DecimalFormat
 
-class RecyclerAdapter() : ListAdapter<CarInfo, RecyclerView.ViewHolder>(DIFF_CAR_INFO) {
+class RecyclerAdapter(val context: Context) : ListAdapter<CarInfo, RecyclerView.ViewHolder>(DIFF_CAR_INFO) {
 
     var datas = mutableListOf<CarInfo>()
+    lateinit var locationBinding: ListItemLocationBinding
+    private lateinit var mapView: MapView
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return when (viewType) {
@@ -83,14 +85,14 @@ class RecyclerAdapter() : ListAdapter<CarInfo, RecyclerView.ViewHolder>(DIFF_CAR
                 CarReviewHolder(viewBinding)
             }
             //지도
-//            InfoType.LOCATION.ordinal -> {
-//                val viewBinding = ListItemLocationBinding.inflate(
-//                    LayoutInflater.from(parent.context),
-//                    parent,
-//                    false
-//                )
-//                LocationHolder(viewBinding)
-//            }
+            InfoType.LOCATION.ordinal -> {
+                val viewBinding = ListItemLocationBinding.inflate(
+                    LayoutInflater.from(parent.context),
+                    parent,
+                    false
+                )
+                LocationHolder(viewBinding)
+            }
             //버튼
             else -> {
                 val view = LayoutInflater.from(parent.context).inflate(R.layout.list_item_button, parent, false)
@@ -122,10 +124,10 @@ class RecyclerAdapter() : ListAdapter<CarInfo, RecyclerView.ViewHolder>(DIFF_CAR
             is ButtonHolder -> {
                 holder.bind()
             }
-//            is LocationHolder -> {
-//
-//                holder.bind(getItem(position))
-//            }
+            is LocationHolder -> {
+
+                holder.bind(getItem(position))
+            }
         }
     }
 
@@ -244,12 +246,29 @@ class RecyclerAdapter() : ListAdapter<CarInfo, RecyclerView.ViewHolder>(DIFF_CAR
         fun bind(){
         }
     }
+
     //LOCATION
-//    inner class LocationHolder(private val binding: ListItemLocationBinding): RecyclerView.ViewHolder(binding.root){
-//        fun bind(item: CarInfo){
-//            binding.viewLocationMap.addView()
-//        }
-//    }
+    inner class LocationHolder(private val binding: ListItemLocationBinding): RecyclerView.ViewHolder(binding.root){
+        fun bind(item: CarInfo){
+            locationBinding = binding
+            mapView = MapView(context)
+            binding.mapView.addView(mapView)
+            mapView.currentLocationTrackingMode = MapView.CurrentLocationTrackingMode.TrackingModeOff
+            mapView.setMapCenterPoint(MapPoint.mapPointWithGeoCoord(item.location_lat.toDouble(), item.location_lng.toDouble()), true)
+
+            val marker = MapPOIItem()
+            marker.apply {
+                itemName = item.carName
+                mapPoint = MapPoint.mapPointWithGeoCoord(item.location_lat.toDouble(), item.location_lng.toDouble())
+                markerType = MapPOIItem.MarkerType.RedPin
+            }
+            mapView.addPOIItem(marker)
+        }
+    }
+
+    fun removeView() {
+        locationBinding.mapView.removeView(mapView)
+    }
 
     override fun getItemViewType(position: Int): Int {
         return when (position) {
@@ -259,7 +278,7 @@ class RecyclerAdapter() : ListAdapter<CarInfo, RecyclerView.ViewHolder>(DIFF_CAR
             3 -> InfoType.OPTION.ordinal
             4 -> InfoType.RATE.ordinal
             8 -> InfoType.BUTTON.ordinal
-//            9 -> InfoType.LOCATION.ordinal
+            9 -> InfoType.LOCATION.ordinal
             else -> InfoType.REVIEW.ordinal
         }
     }
@@ -296,5 +315,15 @@ class RecyclerAdapter() : ListAdapter<CarInfo, RecyclerView.ViewHolder>(DIFF_CAR
                     return oldItem.carName == newItem.carName
                 }
             }
+    }
+
+    override fun onViewDetachedFromWindow(holder: RecyclerView.ViewHolder) {
+        super.onViewDetachedFromWindow(holder)
+        Log.d("jaemin", "11111")
+    }
+
+    override fun onDetachedFromRecyclerView(recyclerView: RecyclerView) {
+        super.onDetachedFromRecyclerView(recyclerView)
+        Log.d("jaemin", "22222")
     }
 }
