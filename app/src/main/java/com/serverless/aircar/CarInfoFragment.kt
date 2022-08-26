@@ -69,7 +69,7 @@ class CarInfoFragment : Fragment() {
 
     @RequiresApi(Build.VERSION_CODES.O)
     private fun initRecycler(cid: String) {
-        adapter = RecyclerAdapter()
+        adapter = RecyclerAdapter(requireContext())
         val datas = mutableListOf<CarInfo>()
         binding.recyclerView.adapter = adapter
 

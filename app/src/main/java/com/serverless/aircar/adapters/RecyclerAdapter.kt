@@ -20,7 +20,7 @@ import com.serverless.aircar.*
 import com.serverless.aircar.data.Option
 import net.daum.android.map.MapView
 
-class RecyclerAdapter() : ListAdapter<CarInfo, RecyclerView.ViewHolder>(DIFF_CAR_INFO) {
+class RecyclerAdapter(val context: Context) : ListAdapter<CarInfo, RecyclerView.ViewHolder>(DIFF_CAR_INFO) {
 
     var datas = mutableListOf<CarInfo>()
     lateinit var locationBinding: ListItemLocationBinding
@@ -242,7 +242,8 @@ class RecyclerAdapter() : ListAdapter<CarInfo, RecyclerView.ViewHolder>(DIFF_CAR
     inner class LocationHolder(private val binding: ListItemLocationBinding): RecyclerView.ViewHolder(binding.root){
         fun bind(item: CarInfo){
             locationBinding = binding
-            binding.viewLocationMap.addView(HomeFragment.mapView)
+            val mapView = MapView(context)
+            binding.viewLocationMap.addView(mapView)
         }
     }
 
