@@ -137,7 +137,7 @@ class HomeFragment : Fragment() {
         // 지도 뷰 띄우기
         mapView = MapView(context)
         binding.mapView.addView(mapView)
-        mapView.currentLocationTrackingMode = MapView.CurrentLocationTrackingMode.TrackingModeOnWithHeading
+        mapView.currentLocationTrackingMode = MapView.CurrentLocationTrackingMode.TrackingModeOnWithoutHeading
 
         return mapView
     }
