@@ -83,14 +83,14 @@ class RecyclerAdapter() : ListAdapter<CarInfo, RecyclerView.ViewHolder>(DIFF_CAR
                 CarReviewHolder(viewBinding)
             }
             //지도
-            InfoType.LOCATION.ordinal -> {
-                val viewBinding = ListItemLocationBinding.inflate(
-                    LayoutInflater.from(parent.context),
-                    parent,
-                    false
-                )
-                LocationHolder(viewBinding)
-            }
+//            InfoType.LOCATION.ordinal -> {
+//                val viewBinding = ListItemLocationBinding.inflate(
+//                    LayoutInflater.from(parent.context),
+//                    parent,
+//                    false
+//                )
+//                LocationHolder(viewBinding)
+//            }
             //버튼
             else -> {
                 val view = LayoutInflater.from(parent.context).inflate(R.layout.list_item_button, parent, false)
@@ -122,16 +122,17 @@ class RecyclerAdapter() : ListAdapter<CarInfo, RecyclerView.ViewHolder>(DIFF_CAR
             is ButtonHolder -> {
                 holder.bind()
             }
-            is LocationHolder -> {
-
-                holder.bind(getItem(position))
-            }
+//            is LocationHolder -> {
+//
+//                holder.bind(getItem(position))
+//            }
         }
     }
 
     // 이미지, 텍스트에 따른 각 홀더 만들어두기
     //IMAGE
     class ImageHolder(private val binding: ListItemImgBinding): RecyclerView.ViewHolder(binding.root){
+        @SuppressLint("SetTextI18n")
         fun bind(item: CarInfo){
             val imageList = ArrayList<SlideModel>()
             for (img in item.carImgList){
@@ -190,6 +191,7 @@ class RecyclerAdapter() : ListAdapter<CarInfo, RecyclerView.ViewHolder>(DIFF_CAR
     }
     // GRID
     class GridHolder(private val binding: ListItemOptionBinding): RecyclerView.ViewHolder(binding.root){
+        @SuppressLint("NotifyDataSetChanged")
         fun bind(item: CarInfo){
             val adapter = GridRecyclerAdapter()
             var listManager = GridLayoutManager(binding.root.context, 4)
@@ -204,6 +206,7 @@ class RecyclerAdapter() : ListAdapter<CarInfo, RecyclerView.ViewHolder>(DIFF_CAR
 
     // RATE
     class RateHolder(private val binding: ListItemReviewStarsBinding): RecyclerView.ViewHolder(binding.root){
+        @SuppressLint("SetTextI18n")
         fun bind(item: CarInfo){
             var carRate = CarInfoData.CarReviewInfo(
                 carReviewCnt = item.reviewCnt,
@@ -215,6 +218,7 @@ class RecyclerAdapter() : ListAdapter<CarInfo, RecyclerView.ViewHolder>(DIFF_CAR
     }
     // REVIEW
     class CarReviewHolder(private val binding: ListItemReviewBinding): RecyclerView.ViewHolder(binding.root){
+        @SuppressLint("SetTextI18n")
         fun bind(item: CarInfo){
             var reviewData = CarInfoData.CarReview(
                 clientProfileImg = item.clientProfileImg,
@@ -229,6 +233,7 @@ class RecyclerAdapter() : ListAdapter<CarInfo, RecyclerView.ViewHolder>(DIFF_CAR
                 txtClientName.text = reviewData.clientName
                 txtClientTime.text = "${reviewData.reviewDate} 전"
                 txtRatingNum.text = reviewData.reviewRate.toString()
+                iconRating.rating = reviewData.reviewRate.toFloat()
                 txtReviewContent.text = reviewData.review
             }
         }
@@ -240,11 +245,11 @@ class RecyclerAdapter() : ListAdapter<CarInfo, RecyclerView.ViewHolder>(DIFF_CAR
         }
     }
     //LOCATION
-    inner class LocationHolder(private val binding: ListItemLocationBinding): RecyclerView.ViewHolder(binding.root){
-        fun bind(item: CarInfo){
-            binding.viewLocationMap.addView()
-        }
-    }
+//    inner class LocationHolder(private val binding: ListItemLocationBinding): RecyclerView.ViewHolder(binding.root){
+//        fun bind(item: CarInfo){
+//            binding.viewLocationMap.addView()
+//        }
+//    }
 
     override fun getItemViewType(position: Int): Int {
         return when (position) {
@@ -254,7 +259,7 @@ class RecyclerAdapter() : ListAdapter<CarInfo, RecyclerView.ViewHolder>(DIFF_CAR
             3 -> InfoType.OPTION.ordinal
             4 -> InfoType.RATE.ordinal
             8 -> InfoType.BUTTON.ordinal
-            9 -> InfoType.LOCATION.ordinal
+//            9 -> InfoType.LOCATION.ordinal
             else -> InfoType.REVIEW.ordinal
         }
     }

@@ -229,7 +229,11 @@ class HomeFragment : Fragment() {
             p0: MapView?,
             p1: MapPOIItem?,
             p2: MapPOIItem.CalloutBalloonButtonType?
-        ) {}
+        ) {
+            val direction =
+                HomeFragmentDirections.actionHomeFragmentToCarInfoFragment(carId)
+            findNavController().navigate(direction)
+        }
         override fun onDraggablePOIItemMoved(p0: MapView?, p1: MapPOIItem?, p2: MapPoint?) {}
     }
 
