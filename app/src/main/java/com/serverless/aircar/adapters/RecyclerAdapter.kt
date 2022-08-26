@@ -26,7 +26,7 @@ import java.text.DecimalFormat
 class RecyclerAdapter(val context: Context) : ListAdapter<CarInfo, RecyclerView.ViewHolder>(DIFF_CAR_INFO) {
 
     var datas = mutableListOf<CarInfo>()
-    lateinit var locationBinding: ListItemLocationBinding
+    var locationBinding: ListItemLocationBinding? = null
     private lateinit var mapView: MapView
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
@@ -267,7 +267,9 @@ class RecyclerAdapter(val context: Context) : ListAdapter<CarInfo, RecyclerView.
     }
 
     fun removeView() {
-        locationBinding.mapView.removeView(mapView)
+        if (locationBinding != null) {
+            locationBinding!!.mapView.removeView(mapView)
+        }
     }
 
     override fun getItemViewType(position: Int): Int {
