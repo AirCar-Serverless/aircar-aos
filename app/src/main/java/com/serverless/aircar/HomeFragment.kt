@@ -27,7 +27,6 @@ import kotlin.collections.HashMap
 class HomeFragment : Fragment() {
 
     private lateinit var binding: FragmentHomeBinding
-    private lateinit var mapView: MapView
     val carInfoMap = HashMap<Location, CarInfo>()
     private lateinit var carId: String
 
@@ -69,6 +68,7 @@ class HomeFragment : Fragment() {
                 val direction =
                     HomeFragmentDirections.actionHomeFragmentToCarInfoFragment(cid)
                 findNavController().navigate(direction)
+                binding.mapView.removeView(mapView)
             }
         })
         binding.carList.adapter = adapter
@@ -88,6 +88,7 @@ class HomeFragment : Fragment() {
             val direction =
                 HomeFragmentDirections.actionHomeFragmentToCarInfoFragment(carId)
             findNavController().navigate(direction)
+            binding.mapView.removeView(mapView)
         }
 
         return binding.root
@@ -251,5 +252,6 @@ class HomeFragment : Fragment() {
     companion object {
         lateinit var rentDate: Date
         lateinit var returnDate: Date
+        lateinit var mapView: MapView
     }
 }

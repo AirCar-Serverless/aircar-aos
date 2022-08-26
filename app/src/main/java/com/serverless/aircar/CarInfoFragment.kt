@@ -35,7 +35,9 @@ class CarInfoFragment : Fragment() {
     private val binding get() = _binding!!
 
     private lateinit var cid: String
+    private lateinit var adapter: RecyclerAdapter
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -67,7 +69,7 @@ class CarInfoFragment : Fragment() {
 
     @RequiresApi(Build.VERSION_CODES.O)
     private fun initRecycler(cid: String) {
-        val adapter = RecyclerAdapter()
+        adapter = RecyclerAdapter()
         val datas = mutableListOf<CarInfo>()
         binding.recyclerView.adapter = adapter
 
@@ -126,6 +128,11 @@ class CarInfoFragment : Fragment() {
                 adapter.notifyDataSetChanged()
             }
         }
+    }
+
+    override fun onStop() {
+        super.onStop()
+        adapter.removeView()
     }
 }
 

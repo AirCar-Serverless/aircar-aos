@@ -16,16 +16,14 @@ import com.denzcoskun.imageslider.models.SlideModel
 import com.serverless.aircar.databinding.*
 import com.denzcoskun.imageslider.constants.ScaleTypes
 import com.denzcoskun.imageslider.interfaces.ItemChangeListener
-import com.serverless.aircar.CarInfo
-import com.serverless.aircar.CarInfoData
-import com.serverless.aircar.HomeFragment
-import com.serverless.aircar.R
+import com.serverless.aircar.*
 import com.serverless.aircar.data.Option
 import net.daum.android.map.MapView
 
 class RecyclerAdapter() : ListAdapter<CarInfo, RecyclerView.ViewHolder>(DIFF_CAR_INFO) {
 
     var datas = mutableListOf<CarInfo>()
+    lateinit var locationBinding: ListItemLocationBinding
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return when (viewType) {
@@ -239,11 +237,17 @@ class RecyclerAdapter() : ListAdapter<CarInfo, RecyclerView.ViewHolder>(DIFF_CAR
         fun bind(){
         }
     }
+
     //LOCATION
     inner class LocationHolder(private val binding: ListItemLocationBinding): RecyclerView.ViewHolder(binding.root){
         fun bind(item: CarInfo){
-            binding.viewLocationMap.addView()
+            locationBinding = binding
+            binding.viewLocationMap.addView(HomeFragment.mapView)
         }
+    }
+
+    fun removeView() {
+        locationBinding.viewLocationMap.removeView(HomeFragment.mapView)
     }
 
     override fun getItemViewType(position: Int): Int {
@@ -291,5 +295,15 @@ class RecyclerAdapter() : ListAdapter<CarInfo, RecyclerView.ViewHolder>(DIFF_CAR
                     return oldItem.carName == newItem.carName
                 }
             }
+    }
+
+    override fun onViewDetachedFromWindow(holder: RecyclerView.ViewHolder) {
+        super.onViewDetachedFromWindow(holder)
+        Log.d("jaemin", "11111")
+    }
+
+    override fun onDetachedFromRecyclerView(recyclerView: RecyclerView) {
+        super.onDetachedFromRecyclerView(recyclerView)
+        Log.d("jaemin", "22222")
     }
 }
