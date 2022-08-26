@@ -119,7 +119,7 @@ class CarInfoFragment : Fragment() {
                 reviewRate = thirdReviewObject.getDouble("rate"),
                 review = thirdReviewObject.getString("content")))
             add(CarInfo())
-//            add(CarInfo(location_lat = "33.4503", location_lng = "126.9184"))
+            add(CarInfo(location_lat = locationObject.getString("lat"), location_lng = locationObject.getString("lng")))
 
             adapter?.let {
                 adapter.submitList(datas)

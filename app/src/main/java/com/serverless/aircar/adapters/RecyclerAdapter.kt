@@ -18,6 +18,7 @@ import com.denzcoskun.imageslider.constants.ScaleTypes
 import com.denzcoskun.imageslider.interfaces.ItemChangeListener
 import com.serverless.aircar.CarInfo
 import com.serverless.aircar.CarInfoData
+import com.serverless.aircar.HomeFragment
 import com.serverless.aircar.R
 import com.serverless.aircar.data.Option
 import net.daum.android.map.MapView
@@ -82,14 +83,14 @@ class RecyclerAdapter() : ListAdapter<CarInfo, RecyclerView.ViewHolder>(DIFF_CAR
                 CarReviewHolder(viewBinding)
             }
             //지도
-//            InfoType.LOCATION.ordinal -> {
-//                val viewBinding = ListItemLocationBinding.inflate(
-//                    LayoutInflater.from(parent.context),
-//                    parent,
-//                    false
-//                )
-//                LocationHolder(viewBinding, parent.context)
-//            }
+            InfoType.LOCATION.ordinal -> {
+                val viewBinding = ListItemLocationBinding.inflate(
+                    LayoutInflater.from(parent.context),
+                    parent,
+                    false
+                )
+                LocationHolder(viewBinding)
+            }
             //버튼
             else -> {
                 val view = LayoutInflater.from(parent.context).inflate(R.layout.list_item_button, parent, false)
@@ -121,10 +122,10 @@ class RecyclerAdapter() : ListAdapter<CarInfo, RecyclerView.ViewHolder>(DIFF_CAR
             is ButtonHolder -> {
                 holder.bind()
             }
-//            is LocationHolder -> {
-//
-//                holder.bind(getItem(position))
-//            }
+            is LocationHolder -> {
+
+                holder.bind(getItem(position))
+            }
         }
     }
 
@@ -239,12 +240,11 @@ class RecyclerAdapter() : ListAdapter<CarInfo, RecyclerView.ViewHolder>(DIFF_CAR
         }
     }
     //LOCATION
-//    inner class LocationHolder(private val binding: ListItemLocationBinding, private val c: Context): RecyclerView.ViewHolder(binding.root){
-//        fun bind(item: CarInfo){
-////            val mapView = MapView(c)
-////            binding.viewLocationMap.addView(mapView)
-//        }
-//    }
+    inner class LocationHolder(private val binding: ListItemLocationBinding): RecyclerView.ViewHolder(binding.root){
+        fun bind(item: CarInfo){
+            binding.viewLocationMap.addView()
+        }
+    }
 
     override fun getItemViewType(position: Int): Int {
         return when (position) {
@@ -254,7 +254,7 @@ class RecyclerAdapter() : ListAdapter<CarInfo, RecyclerView.ViewHolder>(DIFF_CAR
             3 -> InfoType.OPTION.ordinal
             4 -> InfoType.RATE.ordinal
             8 -> InfoType.BUTTON.ordinal
-//            8 -> InfoType.LOCATION.ordinal
+            9 -> InfoType.LOCATION.ordinal
             else -> InfoType.REVIEW.ordinal
         }
     }
@@ -271,7 +271,7 @@ class RecyclerAdapter() : ListAdapter<CarInfo, RecyclerView.ViewHolder>(DIFF_CAR
 //    }
 
     enum class InfoType {
-        IMAGE, HOSTINFO, CARINFO, OPTION, RATE, REVIEW, BUTTON
+        IMAGE, HOSTINFO, CARINFO, OPTION, RATE, REVIEW, LOCATION, BUTTON
     }
 
     companion object {
