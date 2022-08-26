@@ -18,12 +18,13 @@ import com.denzcoskun.imageslider.constants.ScaleTypes
 import com.denzcoskun.imageslider.interfaces.ItemChangeListener
 import com.serverless.aircar.*
 import com.serverless.aircar.data.Option
-import net.daum.android.map.MapView
+import net.daum.mf.map.api.MapView
 
 class RecyclerAdapter(val context: Context) : ListAdapter<CarInfo, RecyclerView.ViewHolder>(DIFF_CAR_INFO) {
 
     var datas = mutableListOf<CarInfo>()
     lateinit var locationBinding: ListItemLocationBinding
+    private lateinit var mapView: MapView
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return when (viewType) {
@@ -87,6 +88,8 @@ class RecyclerAdapter(val context: Context) : ListAdapter<CarInfo, RecyclerView.
                     parent,
                     false
                 )
+                mapView = MapView(context)
+                viewBinding.mapView.addView(mapView)
                 LocationHolder(viewBinding)
             }
             //버튼
@@ -242,13 +245,11 @@ class RecyclerAdapter(val context: Context) : ListAdapter<CarInfo, RecyclerView.
     inner class LocationHolder(private val binding: ListItemLocationBinding): RecyclerView.ViewHolder(binding.root){
         fun bind(item: CarInfo){
             locationBinding = binding
-            val mapView = MapView(context)
-            binding.viewLocationMap.addView(mapView)
         }
     }
 
     fun removeView() {
-        locationBinding.viewLocationMap.removeView(HomeFragment.mapView)
+        locationBinding.mapView.removeView(mapView)
     }
 
     override fun getItemViewType(position: Int): Int {
