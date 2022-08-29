@@ -1,6 +1,6 @@
 ![main_img](https://user-images.githubusercontent.com/65072995/186810373-f6bc79bd-7168-4003-b5c8-bd4519c77fe1.png)
 
-# aircar
+# <img src="doc/imgs/app_icon.png" width="24px"/> aircar
 **유휴차량 P2P 공유 서비스**
 > 🎖 [Kakao x goorm] 구름톤 1기 우수상 - Serverless Team  
 > 기간 : 22.08.24 ~ 22.08.26  
