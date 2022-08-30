@@ -31,3 +31,4 @@
 - Jetpack navigation component
 - Json
 - SingleDateAndTimePicker
+- ImageSlideshow
